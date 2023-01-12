@@ -12,7 +12,7 @@ public class Main extends JFrame {
 
         setSize(600,800);
         setResizable(false);
-        setTitle("Snake");
+        setTitle("Car Game");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
