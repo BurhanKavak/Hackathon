@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManagement {
-    public FileManagement(){
+    public FileManagement() {
         try {
             File myObj = new File("point.txt");
             if (myObj.createNewFile()) {
@@ -21,6 +21,7 @@ public class FileManagement {
             e.printStackTrace();
         }
     }
+
     public String readFile() {
 
         String data = null;
@@ -36,7 +37,9 @@ public class FileManagement {
             e.printStackTrace();
         }
         return data;
-    }public void writeFile(String score){
+    }
+
+    public void writeFile(String score) {
         try {
             FileWriter myWriter = new FileWriter("point.txt");
             myWriter.write(score);

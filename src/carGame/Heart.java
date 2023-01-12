@@ -1,6 +1,6 @@
 package carGame;
 
-public class Heart extends Sprite{
+public class Heart extends Sprite {
 
 
     public Heart(int x, int y) {

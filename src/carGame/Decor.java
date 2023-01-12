@@ -2,7 +2,7 @@ package carGame;
 
 import java.util.Random;
 
-public class Decor extends Sprite{
+public class Decor extends Sprite {
 
     private final int dy = 2;
 
