@@ -11,7 +11,7 @@ public class EnemyCar extends Sprite {
     private int y;
     private int dy;
     Random random=new Random();
-    int rnd= random.nextInt(5);
+    int rnd= random.nextInt(4)+1;
 
     public EnemyCar(int x, int y) {
         super(x, y);

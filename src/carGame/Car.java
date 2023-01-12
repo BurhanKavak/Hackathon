@@ -6,6 +6,7 @@ public class Car extends Sprite {
 
     private int dx;
     private int dy;
+
     public Car(int x, int y) {
         super(x, y);
 
@@ -13,13 +14,13 @@ public class Car extends Sprite {
     }
 
     private void initCar() {
-        loadImage("C:\\Hackathon\\src\\image\\oyuncuarabası.png");
+        loadImage("image/oyuncuarabası.png");
         getImageDimensions();
     }
 
     public void move() {
-        x += dx;
-        y += dy;
+            x += dx;
+            y += dy;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -50,9 +51,9 @@ public class Car extends Sprite {
             dx = 0;
 
         if (key == KeyEvent.VK_UP)
-            dy--;
+            dy = +2;
 
         if (key == KeyEvent.VK_DOWN)
-            dy--;
+            dy = +2;
     }
 }

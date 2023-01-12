@@ -9,8 +9,8 @@ import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int CAR_X = 300;
-    private final int CAR_Y = 750;
+    private final int CAR_X = 100;
+    private final int CAR_Y = 100;
 
     private Timer timer;
 
