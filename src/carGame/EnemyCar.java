@@ -6,7 +6,7 @@ public class EnemyCar extends Sprite {
 
     private int dy=1;
     Random random=new Random();
-    int rnd= random.nextInt(4)+1;
+    int rnd= random.nextInt(5)+1;
 
     public EnemyCar(int x, int y) {
         super(x, y);
