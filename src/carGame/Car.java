@@ -13,7 +13,7 @@ public class Car extends Sprite {
     }
 
     private void initCar() {
-        loadImage("image\\oyuncuarabası.png");
+        loadImage("C:\\Hackathon\\src\\image\\oyuncuarabası.png");
         getImageDimensions();
     }
 
