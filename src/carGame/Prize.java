@@ -2,8 +2,6 @@ package carGame;
 
 public class Prize extends Sprite{
 
-    private int dy = 2;
-
     public Prize(int x, int y) {
         super(x, y);
         initPrize();
@@ -15,6 +13,7 @@ public class Prize extends Sprite{
     }
 
     public void move() {
+        int dy = 2;
         y += dy;
     }
 }

@@ -1,8 +1,8 @@
 package carGame;
 
 public class Map extends Sprite {
-    private int dx=1*Board.gameSpeed;
-    private int map;
+    private final int dx= Board.gameSpeed;
+    private final int map;
     public Map(int x, int y,int map) {
         super(x, y);
         this.map=map;
