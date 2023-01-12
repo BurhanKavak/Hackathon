@@ -30,12 +30,14 @@ public class Board extends JPanel implements ActionListener {
 
     private Random random = new Random();
     private Boolean ingame;
-    private Boolean pause=false;
+    private Boolean pause = false;
     private final int DELAY = 10;
     private int tmp = 10;
     private int sec;
-   private int heart;
+    private int heart;
     private int currentMap = 0;
+    private FileManagement fm = new FileManagement();
+    private int maxScore = Integer.parseInt(fm.readFile());
 
     private final int[][] pos = {
             {70, 50}, {60, 50}, {50, 50}
@@ -75,9 +77,9 @@ public class Board extends JPanel implements ActionListener {
 
     private void drawObject(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-            for (int i = maps.size() - 1; i >= 0; i--)
-                if (maps.get(i).isVisible())
-                    g2d.drawImage(maps.get(i).getImage(), maps.get(i).getX(), maps.get(i).getY(), this);
+        for (int i = maps.size() - 1; i >= 0; i--)
+            if (maps.get(i).isVisible())
+                g2d.drawImage(maps.get(i).getImage(), maps.get(i).getX(), maps.get(i).getY(), this);
         if (!roadLines.isEmpty()) {
             for (int i = roadLines.size() - 1; i >= 0; i--)
                 if (roadLines.get(i).isVisible())
@@ -124,20 +126,33 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void gameOver(Graphics g) {
+        String msg = "maalesef kaybettiniz";
+        if (maxScore < score) {
+            fm.writeFile(String.valueOf(score));
+            msg = "Tebrikler rekor kırdınız";
+        }
 
-        String msg = "Game Over";
+
         Font small = new Font("Helvetica", Font.BOLD, 20);
         FontMetrics metr = getFontMetrics(small);
         setBackground(Color.BLACK);
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString(msg, (600 - metr.stringWidth(msg)) / 2, 800 / 2);
+        if (score < maxScore)
+            g.drawString("En yüksek score= " + maxScore, (600 - metr.stringWidth(msg)) / 2, 800 / 2 + 100);
+        else{
+            g.drawString("En yüksek score= " + score, (600 - metr.stringWidth(msg)) / 2, 800 / 2 + 100);
+            Kupa kupa=new Kupa(180,100);
+            g.drawImage(kupa.image,kupa.getX(),kupa.getY(),this);
+        }
+
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (!pause){
+        if (!pause) {
             addMap();
             updateMap();
             updateDecor();
@@ -170,7 +185,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void updateDecor() {
-        if (tmp == 0 && sec % 2 == 0){
+        if (tmp == 0 && sec % 2 == 0) {
             decors.add(new Decor(0, -200));
             decors.add(new Decor(520, -200));
         }
@@ -213,7 +228,7 @@ public class Board extends JPanel implements ActionListener {
         if (currentMap == 0) {
             currentMap++;
             maps.add(new Map(0, 0, currentMap));
-        } else if (tmp == 0 && sec % 15 == 0&&currentMap<3) {
+        } else if (tmp == 0 && sec % 15 == 0 && currentMap < 3) {
             currentMap++;
             maps.add(new Map(0, -800, currentMap));
             gameSpeed++;
@@ -326,9 +341,9 @@ public class Board extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             int key;
             key = e.getKeyCode();
-                if(key == KeyEvent.VK_SPACE) {
-                    pause= !pause;
-                }
+            if (key == KeyEvent.VK_SPACE) {
+                pause = !pause;
+            }
 
 
             car.keyPressed(e);
