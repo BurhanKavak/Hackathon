@@ -11,18 +11,13 @@ import java.util.Random;
 
 public class Board extends JPanel implements ActionListener {
     public static int gameSpeed = 1;
-    private final int CAR_X = 150;
-    private final int CAR_Y = 500;
-
-    private Timer timer;
-
     private Car car;
     private Map map;
-    private ArrayList<EnemyCar> enemyCars = new ArrayList<>();
-    private ArrayList<Prize> prize = new ArrayList<>();
-    private ArrayList<Map> maps = new ArrayList<>();
-    private ArrayList<RoadLine> roadLines = new ArrayList<>();
-    private Random random = new Random();
+    private final ArrayList<EnemyCar> enemyCars = new ArrayList<>();
+    private final ArrayList<Prize> prize = new ArrayList<>();
+    private final ArrayList<Map> maps = new ArrayList<>();
+    private final ArrayList<RoadLine> roadLines = new ArrayList<>();
+    private final Random random = new Random();
     private Boolean ingame;
     private final int DELAY = 10;
     private int tmp = 10;
@@ -42,9 +37,11 @@ public class Board extends JPanel implements ActionListener {
         ingame = true;
         map = new Map(0, 0, currentMap);
 
+        int CAR_Y = 500;
+        int CAR_X = 150;
         car = new Car(CAR_X, CAR_Y);
 
-        timer = new Timer(DELAY, this);
+        Timer timer = new Timer(DELAY, this);
         timer.start();
     }
 
