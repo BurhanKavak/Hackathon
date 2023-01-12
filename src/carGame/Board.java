@@ -17,6 +17,8 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
 
     private Car car;
+
+    private int score;
     private Map map;
     private ArrayList<EnemyCar> enemyCars = new ArrayList<>();
     private ArrayList<Prize> prize = new ArrayList<>();
@@ -71,6 +73,11 @@ public class Board extends JPanel implements ActionListener {
 
     private void drawObject(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.BLUE);
+        g2d.drawString("SKOR = " + score + "",
+                 400, 50);
+
         if (!maps.isEmpty()) {
             for (int i = maps.size() - 1; i >= 0; i--)
                 if (maps.get(i).isVisible())
@@ -129,6 +136,7 @@ public class Board extends JPanel implements ActionListener {
         updateHeart();
         updateMyCar();
         updateRoadLine();
+        updateScore();
         updateEnemyCar();
         updatePrize();
         checkCollisions();
@@ -172,8 +180,14 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    public void updateScore() {
+        if (tmp == 0 && sec % 2 == 0) {
+            score += 2;
+        }
+    }
+
     private void updateRoadLine() {
-        if (tmp == 0 && sec % 2 == 0)
+        if (tmp == 0 && sec % 4 == 0)
             roadLines.add(new RoadLine(300, -200));
         if (!roadLines.isEmpty()) {
             for (int i = roadLines.size() - 1; i >= 0; i--) {
@@ -208,7 +222,7 @@ public class Board extends JPanel implements ActionListener {
         if (heartImg.isEmpty()) {
 
             ingame = false;
-            return;
+
         }
 
 
@@ -248,10 +262,8 @@ public class Board extends JPanel implements ActionListener {
             Rectangle r2 = priz.getBounds();
 
             if (r3.intersects(r2)) {
-
-                heart--;
                 priz.setVisible(false);
-                ingame = false;
+                score += 10;
             }
         }
     }
