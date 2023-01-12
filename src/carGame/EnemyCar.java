@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class EnemyCar extends Sprite {
 
-    private final int dy = 2 ;
+    private final int dy = 3 ;
     Random random = new Random();
     int rnd = random.nextInt(5) + 1;
 

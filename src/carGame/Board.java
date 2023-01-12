@@ -203,7 +203,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void updateRoadLine() {
-        if (tmp == 0 && sec % 2 == 0)
+        if (tmp == 0 && sec % 1 == 0)
             roadLines.add(new RoadLine(300, -200));
         if (!roadLines.isEmpty()) {
             for (int i = roadLines.size() - 1; i >= 0; i--) {

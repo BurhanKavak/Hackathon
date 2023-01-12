@@ -1,7 +1,7 @@
 package carGame;
 
 public class RoadLine extends Sprite{
-    private final int dy=1;
+    private final int dy=2;
     public RoadLine(int x, int y) {
         super(x, y);
         initCar();

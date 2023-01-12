@@ -1,7 +1,7 @@
 package carGame;
 
 public class Map extends Sprite {
-    private final int dy= 1;
+    private final int dy= 2;
     private final int map;
     public Map(int x, int y,int map) {
         super(x, y);
