@@ -18,7 +18,7 @@ public class Main extends JFrame {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(RoadLine[] args) {
         EventQueue.invokeLater(() -> {
             Main main = new Main();
             main.setVisible(true);

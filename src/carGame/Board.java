@@ -23,6 +23,7 @@ public class Board extends JPanel implements ActionListener {
     private Boolean ingame;
     private final int DELAY = 10;
     private int tmp=10;
+    private int sec;
 
     public Board() {
 
@@ -67,12 +68,11 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void updateEnemyCar() {
-        if (tmp == 0)
-            enemyCars.add(new EnemyCar(random.nextInt(200) + 200, -100));
+        if (tmp == 0&&sec%4==0)
+            enemyCars.add(new EnemyCar(random.nextInt(300) + 100, -200));
         if (!enemyCars.isEmpty()) {
             for (int i = enemyCars.size()-1; i >= 0; i--) {
                 enemyCars.get(i).move();
-                System.out.println(enemyCars.size());
                 if (enemyCars.get(i).getY() >= 800)
                     enemyCars.remove(i);
             }
@@ -87,10 +87,11 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void sec() {
-        if (tmp < 3000)
+        if (tmp < 1000)
             tmp += DELAY;
         else {
             tmp = 0;
+            sec++;
         }
     }
 
