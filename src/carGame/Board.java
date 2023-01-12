@@ -22,6 +22,7 @@ public class Board extends JPanel implements ActionListener {
     private Map map;
     private ArrayList<EnemyCar> enemyCars = new ArrayList<>();
     private ArrayList<Prize> prize = new ArrayList<>();
+    private ArrayList<Decor> decors = new ArrayList<>();
 
     private ArrayList<Heart> heartImg = new ArrayList<>();
     private ArrayList<Map> maps = new ArrayList<>();
@@ -105,6 +106,12 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
+        if (!decors.isEmpty()) {
+            for (int i = decors.size() - 1; i >= 0; i--)
+                if (decors.get(i).isVisible())
+                    g2d.drawImage(decors.get(i).getImage(), decors.get(i).getX(), decors.get(i).getY(), this);
+        }
+
         if (heart == 0) {
             gameOver(g);
             timer.stop();
@@ -133,6 +140,7 @@ public class Board extends JPanel implements ActionListener {
         if (!pause){
             addMap();
             updateMap();
+            updateDecor();
             updateHeart();
             updateMyCar();
             updateRoadLine();
@@ -156,6 +164,22 @@ public class Board extends JPanel implements ActionListener {
                 enemyCars.get(i).move();
                 if (enemyCars.get(i).getY() >= 800 || !enemyCars.get(i).isVisible())
                     enemyCars.remove(i);
+            }
+        }
+
+    }
+
+    private void updateDecor() {
+        if (tmp == 0 && sec % 2 == 0){
+            decors.add(new Decor(0, -200));
+            decors.add(new Decor(520, -200));
+        }
+
+        if (!decors.isEmpty()) {
+            for (int i = decors.size() - 1; i >= 0; i--) {
+                decors.get(i).move();
+                if (decors.get(i).getY() >= 800 || !decors.get(i).isVisible())
+                    decors.remove(i);
             }
         }
 
