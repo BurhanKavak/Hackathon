@@ -1,6 +1,6 @@
 package carGame;
 
-public class Prize extends Sprite{
+public class Prize extends Sprite {
 
     public Prize(int x, int y) {
         super(x, y);

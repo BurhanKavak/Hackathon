@@ -1,4 +1,5 @@
 package carGame;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +10,7 @@ public class Main extends JFrame {
 
     private void initUI() {
         add(new Board());
-        setSize(600,800);
+        setSize(600, 800);
         setResizable(false);
         setTitle("Car Game");
         setLocationRelativeTo(null);

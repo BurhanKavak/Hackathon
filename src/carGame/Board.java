@@ -141,10 +141,10 @@ public class Board extends JPanel implements ActionListener {
         g.drawString(msg, (600 - metr.stringWidth(msg)) / 2, 800 / 2);
         if (score < maxScore)
             g.drawString("En yüksek score= " + maxScore, (600 - metr.stringWidth(msg)) / 2, 800 / 2 + 100);
-        else{
+        else {
             g.drawString("En yüksek score= " + score, (600 - metr.stringWidth(msg)) / 2, 800 / 2 + 100);
-            Kupa kupa=new Kupa(180,100);
-            g.drawImage(kupa.image,kupa.getX(),kupa.getY(),this);
+            Kupa kupa = new Kupa(180, 100);
+            g.drawImage(kupa.image, kupa.getX(), kupa.getY(), this);
         }
 
     }

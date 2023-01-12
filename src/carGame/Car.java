@@ -41,16 +41,16 @@ public class Car extends Sprite {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT)
-            dx = -3*Board.gameSpeed;
+            dx = -3 * Board.gameSpeed;
 
         if (key == KeyEvent.VK_RIGHT)
-            dx = 3*Board.gameSpeed;
+            dx = 3 * Board.gameSpeed;
 
         if (key == KeyEvent.VK_UP)
-            dy = -3*Board.gameSpeed;
+            dy = -3 * Board.gameSpeed;
 
         if (key == KeyEvent.VK_DOWN)
-            dy = 3*Board.gameSpeed;
+            dy = 3 * Board.gameSpeed;
     }
 
     public void keyReleased(KeyEvent e) {
