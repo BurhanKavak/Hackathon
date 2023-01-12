@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class EnemyCar extends Sprite {
 
-    private final int dy = 2 * Board.gameSpeed;
+    private final int dy = 2 ;
     Random random = new Random();
     int rnd = random.nextInt(5) + 1;
 
@@ -19,7 +19,7 @@ public class EnemyCar extends Sprite {
     }
 
     public void move() {
-        y += dy;
+        y += dy* Board.gameSpeed;
     }
 
 }

@@ -1,9 +1,7 @@
 package carGame;
 
-import java.util.Random;
-
 public class RoadLine extends Sprite{
-    private final int dy= Board.gameSpeed;
+    private final int dy=1;
     public RoadLine(int x, int y) {
         super(x, y);
         initCar();
@@ -13,6 +11,6 @@ public class RoadLine extends Sprite{
         getImageDimensions();
     }
     public void move() {
-        y += dy;
+        y += dy * Board.gameSpeed;
     }
 }

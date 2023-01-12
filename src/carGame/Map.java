@@ -1,7 +1,7 @@
 package carGame;
 
 public class Map extends Sprite {
-    private final int dx= Board.gameSpeed;
+    private final int dy= 1;
     private final int map;
     public Map(int x, int y,int map) {
         super(x, y);
@@ -13,7 +13,7 @@ public class Map extends Sprite {
         loadImage("image/yol"+map+".png");
         getImageDimensions();
     }
-    private void move(){
-        x+=dx;
+    public void move(){
+        y+=dy* Board.gameSpeed;
     }
 }

@@ -33,7 +33,7 @@ public class Board extends JPanel implements ActionListener {
     private int tmp = 10;
     private int sec;
    private int heart;
-    private int currentMap = 1;
+    private int currentMap = 0;
 
     private final int[][] pos = {
             {70, 50}, {60, 50}, {50, 50}
@@ -53,7 +53,7 @@ public class Board extends JPanel implements ActionListener {
         map = new Map(0, 0, currentMap);
 
         car = new Car(CAR_X, CAR_Y);
-        
+
         heart = 3;
         initHeart();
 
@@ -75,14 +75,10 @@ public class Board extends JPanel implements ActionListener {
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.setColor(Color.BLUE);
-        g2d.drawString("SKOR = " + score + "",
-                 400, 50);
 
-        if (!maps.isEmpty()) {
             for (int i = maps.size() - 1; i >= 0; i--)
                 if (maps.get(i).isVisible())
                     g2d.drawImage(maps.get(i).getImage(), maps.get(i).getX(), maps.get(i).getY(), this);
-        }
         if (!roadLines.isEmpty()) {
             for (int i = roadLines.size() - 1; i >= 0; i--)
                 if (roadLines.get(i).isVisible())
@@ -110,11 +106,13 @@ public class Board extends JPanel implements ActionListener {
                 g.drawImage(heart.getImage(), heart.getX(), heart.getY(), this);
             }
         }
-        
+
         if (heart == 0) {
             gameOver(g);
             timer.stop();
         }
+        g2d.drawString("SKOR = " + score + "",
+                400, 50);
 
 
     }
@@ -133,6 +131,8 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        addMap();
+        updateMap();
         updateHeart();
         updateMyCar();
         updateRoadLine();
@@ -172,11 +172,24 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void updateMap() {
-        if (tmp == 10 && sec == 0)
+        if (maps.size() == 2) {
+            for (int i = maps.size() - 1; i >= 0; i--) {
+                maps.get(i).move();
+                if (maps.get(i).getY() >= 800)
+                    maps.remove(i);
+            }
+        }
+
+    }
+
+    private void addMap() {
+        if (currentMap == 0) {
+            currentMap++;
             maps.add(new Map(0, 0, currentMap));
-        if (sec / 15 == 0) {
+        } else if (tmp == 0 && sec % 15 == 0&&currentMap<3) {
             currentMap++;
             maps.add(new Map(0, -800, currentMap));
+            gameSpeed++;
         }
     }
 
@@ -187,7 +200,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void updateRoadLine() {
-        if (tmp == 0 && sec % 4 == 0)
+        if (tmp == 0 && sec % 2 == 0)
             roadLines.add(new RoadLine(300, -200));
         if (!roadLines.isEmpty()) {
             for (int i = roadLines.size() - 1; i >= 0; i--) {
