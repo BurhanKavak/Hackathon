@@ -126,7 +126,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void gameOver(Graphics g) {
-        String msg = "maalesef kaybettiniz";
+        String msg = "Maalesef kaybettiniz";
         if (maxScore < score) {
             fm.writeFile(String.valueOf(score));
             msg = "Tebrikler rekor kırdınız";
