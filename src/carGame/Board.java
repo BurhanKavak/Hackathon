@@ -22,7 +22,7 @@ public class Board extends JPanel implements ActionListener {
     private final int DELAY = 10;
     private int tmp = 10;
     private int sec;
-    private int heart = 3;
+   private int heart;
     private int currentMap = 1;
 
     public Board() {
@@ -40,6 +40,9 @@ public class Board extends JPanel implements ActionListener {
         int CAR_Y = 500;
         int CAR_X = 150;
         car = new Car(CAR_X, CAR_Y);
+        
+        heart = 3;
+        
 
         Timer timer = new Timer(DELAY, this);
         timer.start();
@@ -73,8 +76,24 @@ public class Board extends JPanel implements ActionListener {
                 if (prize.get(i).isVisible())
                     g2d.drawImage(prize.get(i).getImage(), prize.get(i).getX(), prize.get(i).getY(), this);
         }
+        
+        if (heart == 0) {
+            gameOver(g);
+            timer.stop();
+        }
 
 
+    }
+
+    private void gameOver(Graphics g) {
+
+        String msg = "Game Over";
+        Font small = new Font("Helvetica", Font.BOLD, 20);
+        FontMetrics metr = getFontMetrics(small);
+        setBackground(Color.BLACK);
+        g.setColor(Color.white);
+        g.setFont(small);
+        g.drawString(msg, (600 - metr.stringWidth(msg)) / 2, 800 / 2);
     }
 
 
@@ -91,7 +110,7 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void updateEnemyCar() {
-        if (tmp == 0 && sec % 4 == 0)
+        if (tmp == 0 && sec % 2 == 0)
             enemyCars.add(new EnemyCar(random.nextInt(300) + 100, -200));
         if (!enemyCars.isEmpty()) {
             for (int i = enemyCars.size() - 1; i >= 0; i--) {
@@ -165,6 +184,7 @@ public class Board extends JPanel implements ActionListener {
             Rectangle r2 = enemyCar.getBounds();
 
             if (r3.intersects(r2)) {
+
 
                 heart--;
                 enemyCar.setVisible(false);
