@@ -10,14 +10,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Board extends JPanel implements ActionListener {
-    public static int gameSpeed=1;
+    public static int gameSpeed = 1;
     private final int CAR_X = 150;
     private final int CAR_Y = 500;
 
     private Timer timer;
 
     private Car car;
+    private Map map;
     private ArrayList<EnemyCar> enemyCars = new ArrayList<>();
+    private ArrayList<Prize> prize = new ArrayList<>();
     private ArrayList<Map> maps = new ArrayList<>();
     private ArrayList<RoadLine> roadLines = new ArrayList<>();
     private Random random = new Random();
@@ -25,8 +27,8 @@ public class Board extends JPanel implements ActionListener {
     private final int DELAY = 10;
     private int tmp = 10;
     private int sec;
-    private int heart=3;
-    private int currentMap=1;
+    private int heart = 3;
+    private int currentMap = 1;
 
     public Board() {
 
@@ -38,7 +40,10 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
         setFocusable(true);
         ingame = true;
+        map = new Map(0, 0, currentMap);
+
         car = new Car(CAR_X, CAR_Y);
+
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -66,6 +71,12 @@ public class Board extends JPanel implements ActionListener {
                     g2d.drawImage(enemyCars.get(i).getImage(), enemyCars.get(i).getX(), enemyCars.get(i).getY(), this);
         }
 
+        if (!prize.isEmpty()) {
+            for (int i = prize.size() - 1; i >= 0; i--)
+                if (prize.get(i).isVisible())
+                    g2d.drawImage(prize.get(i).getImage(), prize.get(i).getX(), prize.get(i).getY(), this);
+        }
+
 
     }
 
@@ -75,7 +86,9 @@ public class Board extends JPanel implements ActionListener {
         updateMyCar();
         updateRoadLine();
         updateEnemyCar();
+        updatePrize();
         checkCollisions();
+        checkCollisionWithPrize();
         sec();
         repaint();
     }
@@ -86,18 +99,32 @@ public class Board extends JPanel implements ActionListener {
         if (!enemyCars.isEmpty()) {
             for (int i = enemyCars.size() - 1; i >= 0; i--) {
                 enemyCars.get(i).move();
-                if (enemyCars.get(i).getY() >= 800|| !enemyCars.get(i).isVisible())
+                if (enemyCars.get(i).getY() >= 800 || !enemyCars.get(i).isVisible())
                     enemyCars.remove(i);
             }
         }
 
     }
+
+    private void updatePrize() {
+        if (tmp == 0 && sec % 10 == 0)
+            prize.add(new Prize(random.nextInt(300) + 100, -200));
+        if (!prize.isEmpty()) {
+            for (int i = prize.size() - 1; i >= 0; i--) {
+                prize.get(i).move();
+                if (prize.get(i).getY() >= 800 || !prize.get(i).isVisible())
+                    prize.remove(i);
+            }
+        }
+
+    }
+
     private void updateMap() {
         if (tmp == 10 && sec == 0)
-            maps.add(new Map(0, 0,currentMap));
-        if (sec/15 == 0) {
+            maps.add(new Map(0, 0, currentMap));
+        if (sec / 15 == 0) {
             currentMap++;
-            maps.add( new Map(0, -800, currentMap));
+            maps.add(new Map(0, -800, currentMap));
         }
     }
 
@@ -144,6 +171,23 @@ public class Board extends JPanel implements ActionListener {
 
                 heart--;
                 enemyCar.setVisible(false);
+                ingame = false;
+            }
+        }
+    }
+
+    public void checkCollisionWithPrize() {
+
+        Rectangle r3 = car.getBounds();
+
+        for (Prize priz : prize) {
+
+            Rectangle r2 = priz.getBounds();
+
+            if (r3.intersects(r2)) {
+
+                heart--;
+                priz.setVisible(false);
                 ingame = false;
             }
         }
