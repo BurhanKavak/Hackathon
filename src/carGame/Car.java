@@ -22,14 +22,14 @@ public class Car extends Sprite {
         x += dx;
         y += dy;
 
-        if (x < 1) {
-            x = 1;
+        if (x < 115) {
+            x = 115;
         }
         if (y < 1) {
             y = 1;
         }
-        if (x > 500) {
-            x = 500;
+        if (x > 412) {
+            x = 412;
         }
         if (y > 600) {
             y = 600;

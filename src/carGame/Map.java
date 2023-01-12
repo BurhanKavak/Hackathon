@@ -7,7 +7,7 @@ public class Map extends Sprite {
     }
 
     private void initCar() {
-        loadImage("image/yol1.png");
+        loadImage("image/yol3.png");
         getImageDimensions();
     }
 }
