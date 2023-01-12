@@ -29,6 +29,7 @@ public class Board extends JPanel implements ActionListener {
 
     private Random random = new Random();
     private Boolean ingame;
+    private Boolean pause;
     private final int DELAY = 10;
     private int tmp = 10;
     private int sec;
@@ -297,6 +298,15 @@ public class Board extends JPanel implements ActionListener {
 
         @Override
         public void keyPressed(KeyEvent e) {
+            int key;
+            key = e.getKeyCode();
+
+
+                if(key == KeyEvent.VK_SPACE) {
+                    timer.stop();
+                }
+
+
             car.keyPressed(e);
         }
     }
