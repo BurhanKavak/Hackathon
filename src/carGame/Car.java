@@ -14,13 +14,26 @@ public class Car extends Sprite {
     }
 
     private void initCar() {
-        loadImage("image/oyuncuarabası.png");
+        loadImage("image/oyuncuarabasııı.png");
         getImageDimensions();
     }
 
     public void move() {
-            x += dx;
-            y += dy;
+        x += dx;
+        y += dy;
+
+        if (x < 1) {
+            x = 1;
+        }
+        if (y < 1) {
+            y = 1;
+        }
+        if (x > 500) {
+            x = 500;
+        }
+        if (y > 600) {
+            y = 600;
+        }
     }
 
     public void keyPressed(KeyEvent e) {
@@ -51,9 +64,9 @@ public class Car extends Sprite {
             dx = 0;
 
         if (key == KeyEvent.VK_UP)
-            dy = +2;
+            dy = +1;
 
         if (key == KeyEvent.VK_DOWN)
-            dy = +2;
+            dy = +1;
     }
 }

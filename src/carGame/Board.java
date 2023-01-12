@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int CAR_X = 100;
-    private final int CAR_Y = 100;
+    private final int CAR_X = 150;
+    private final int CAR_Y = 500;
 
     private Timer timer;
 
