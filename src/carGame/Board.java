@@ -19,6 +19,7 @@ public class Board extends JPanel implements ActionListener {
     private Car car;
     private Map map;
     private ArrayList<EnemyCar> enemyCars = new ArrayList<>();
+    private ArrayList<RoadLine> roadLines = new ArrayList<>();
     private Random random = new Random();
     private Boolean ingame;
     private final int DELAY = 10;
@@ -46,15 +47,22 @@ public class Board extends JPanel implements ActionListener {
     private void drawObject(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(map.getImage(), map.getX(), map.getY(), this);
+        if (!roadLines.isEmpty()) {
+            for (int i = roadLines.size()-1; i >= 0; i--)
+                if (roadLines.get(i).isVisible())
+                    g2d.drawImage(roadLines.get(i).getImage(), roadLines.get(i).getX(), roadLines.get(i).getY(), this);
+        }
         if (car.isVisible()) {
             g2d.drawImage(car.getImage(),
                     car.getX(), car.getY(), this);
         }
+
         if (!enemyCars.isEmpty()) {
             for (int i = enemyCars.size()-1; i >= 0; i--)
                 if (enemyCars.get(i).isVisible())
                     g2d.drawImage(enemyCars.get(i).getImage(), enemyCars.get(i).getX(), enemyCars.get(i).getY(), this);
         }
+
 
     }
 
@@ -62,6 +70,7 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         updateMyCar();
+        updateRoadLine();
         updateEnemyCar();
         sec();
         repaint();
@@ -78,6 +87,21 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
+    }
+    private void updateRoadLine(){
+        if (tmp == 0&&sec%2==0)
+            roadLines.add(new RoadLine(300, -200));
+        if (!roadLines.isEmpty()) {
+            for (int i = roadLines.size()-1; i >= 0; i--) {
+                roadLines.get(i).move();
+                if (roadLines.get(i).getY() >= 800)
+                    roadLines.remove(i);
+            }
+        }
+        if (tmp==10 && sec==0){
+            for (int i=600;i>=-200;i-=200 )
+                roadLines.add(new RoadLine(300, i));
+        }
     }
 
     private void updateMyCar() {
