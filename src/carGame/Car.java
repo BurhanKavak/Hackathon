@@ -31,8 +31,8 @@ public class Car extends Sprite {
         if (x > 500) {
             x = 500;
         }
-        if (y > 700) {
-            y = 700;
+        if (y > 600) {
+            y = 600;
         }
     }
 
