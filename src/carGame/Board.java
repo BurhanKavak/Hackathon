@@ -20,8 +20,11 @@ public class Board extends JPanel implements ActionListener {
     private Map map;
     private ArrayList<EnemyCar> enemyCars = new ArrayList<>();
     private ArrayList<Prize> prize = new ArrayList<>();
+
+    private ArrayList<Heart> heartImg = new ArrayList<>();
     private ArrayList<Map> maps = new ArrayList<>();
     private ArrayList<RoadLine> roadLines = new ArrayList<>();
+
     private Random random = new Random();
     private Boolean ingame;
     private final int DELAY = 10;
@@ -29,6 +32,11 @@ public class Board extends JPanel implements ActionListener {
     private int sec;
    private int heart;
     private int currentMap = 1;
+
+    private final int[][] pos = {
+            {70, 50}, {60, 50}, {50, 50}
+
+    };
 
     public Board() {
 
@@ -45,10 +53,20 @@ public class Board extends JPanel implements ActionListener {
         car = new Car(CAR_X, CAR_Y);
         
         heart = 3;
-        
+        initHeart();
+
 
         timer = new Timer(DELAY, this);
         timer.start();
+    }
+
+    public void initHeart() {
+
+        heartImg = new ArrayList<>();
+
+        for (int[] p : pos) {
+            heartImg.add(new Heart(p[0], p[1]));
+        }
     }
 
     private void drawObject(Graphics g) {
@@ -79,6 +97,12 @@ public class Board extends JPanel implements ActionListener {
                 if (prize.get(i).isVisible())
                     g2d.drawImage(prize.get(i).getImage(), prize.get(i).getX(), prize.get(i).getY(), this);
         }
+
+        for (Heart heart : heartImg) {
+            if (heart.isVisible()) {
+                g.drawImage(heart.getImage(), heart.getX(), heart.getY(), this);
+            }
+        }
         
         if (heart == 0) {
             gameOver(g);
@@ -102,6 +126,7 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        updateHeart();
         updateMyCar();
         updateRoadLine();
         updateEnemyCar();
@@ -178,6 +203,17 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    private void updateHeart() {
+
+        if (heartImg.isEmpty()) {
+
+            ingame = false;
+            return;
+        }
+
+
+    }
+
     public void checkCollisions() {
 
         Rectangle r3 = car.getBounds();
@@ -189,7 +225,14 @@ public class Board extends JPanel implements ActionListener {
             if (r3.intersects(r2)) {
 
 
+                for (int i = 0; i < heartImg.size() - 1; i++) {
+
+                    heartImg.remove(i);
+
+                }
                 heart--;
+
+
                 enemyCar.setVisible(false);
                 ingame = false;
             }
