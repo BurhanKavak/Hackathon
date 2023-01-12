@@ -29,7 +29,7 @@ public class Board extends JPanel implements ActionListener {
 
     private Random random = new Random();
     private Boolean ingame;
-    private Boolean pause;
+    private Boolean pause=false;
     private final int DELAY = 10;
     private int tmp = 10;
     private int sec;
@@ -74,9 +74,6 @@ public class Board extends JPanel implements ActionListener {
 
     private void drawObject(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-
-        g2d.setColor(Color.BLUE);
-
             for (int i = maps.size() - 1; i >= 0; i--)
                 if (maps.get(i).isVisible())
                     g2d.drawImage(maps.get(i).getImage(), maps.get(i).getX(), maps.get(i).getY(), this);
@@ -112,6 +109,7 @@ public class Board extends JPanel implements ActionListener {
             gameOver(g);
             timer.stop();
         }
+        g2d.setColor(Color.white);
         g2d.drawString("SKOR = " + score + "",
                 400, 50);
 
@@ -132,18 +130,22 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        addMap();
-        updateMap();
-        updateHeart();
-        updateMyCar();
-        updateRoadLine();
-        updateScore();
-        updateEnemyCar();
-        updatePrize();
-        checkCollisions();
-        checkCollisionWithPrize();
-        sec();
-        repaint();
+        if (!pause){
+            addMap();
+            updateMap();
+            updateHeart();
+            updateMyCar();
+            updateRoadLine();
+            updateScore();
+            updateEnemyCar();
+            updatePrize();
+            checkCollisions();
+            checkCollisionWithPrize();
+            sec();
+            repaint();
+
+        }
+
     }
 
     private void updateEnemyCar() {
@@ -300,10 +302,8 @@ public class Board extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             int key;
             key = e.getKeyCode();
-
-
                 if(key == KeyEvent.VK_SPACE) {
-                    timer.stop();
+                    pause= !pause;
                 }
 
 
