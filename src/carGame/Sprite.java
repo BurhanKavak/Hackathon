@@ -19,7 +19,7 @@ public class Sprite {
     }
 
 
-    protected void loadImage(RoadLine imageName) {
+    protected void loadImage(String imageName) {
         ImageIcon imageIcon = new ImageIcon(imageName);
         image = imageIcon.getImage();
     }
